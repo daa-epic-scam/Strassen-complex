@@ -1,16 +1,18 @@
 #include <iostream>
+#include <string>
 #include "complex.h"
+using namespace std;
 
-Complex Complex::split(std::string cnum)
+Complex Complex::split(string cnum)
 {
-    float real = 0; // PLACEHOLDER
-    float im = 0;
+    float real = stof(cnum); // PLACEHOLDER
+    float im = stof(cnum);
     return Complex(real, im);
 }
 
-std::string Complex::format()
+string Complex::format()
 {
-    return std::to_string(this->r) + " + " + std::to_string(this->i) + "i";
+    return to_string(this->r) + " + " + to_string(this->i) + "i";
 }
 
 Complex::Complex(float r, float i)
@@ -19,7 +21,7 @@ Complex::Complex(float r, float i)
     this->i = i;
 }
 
-Complex::Complex(std::string cnum)
+Complex::Complex(string cnum)
 {
     Complex c = split(cnum);
     this->r = c.r;
@@ -38,5 +40,5 @@ Complex Complex::operator*(Complex &factor)
 
 void Complex::print()
 {
-    std::cout << this->format() << std::endl;
+    cout << this->format() << endl;
 }
