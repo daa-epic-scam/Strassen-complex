@@ -5,9 +5,10 @@ using namespace std;
 
 Complex Complex::split(string cnum)
 {
-    float real = stof(cnum); // PLACEHOLDER
-    float im = stof(cnum);
-    return Complex(real, im);
+    int end = cnum.find("+", 0);
+    string real = cnum.substr(0, end);
+    string im = cnum.substr(end + 1, cnum.size() - end - 2);
+    return Complex(stof(real), stof(im));
 }
 
 string Complex::format()
