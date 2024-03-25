@@ -15,6 +15,12 @@ string Complex::format()
     return to_string(this->r) + " + " + to_string(this->i) + "i";
 }
 
+Complex::Complex()
+{
+    this->r = 0;
+    this->i = 0;
+}
+
 Complex::Complex(float r, float i)
 {
     this->r = r;
@@ -28,9 +34,14 @@ Complex::Complex(string cnum)
     this->i = c.i;
 }
 
-Complex Complex::operator+(Complex &factor)
+Complex Complex::operator+(Complex &addend)
 {
-    return Complex(this->r + factor.r, this->i + factor.i);
+    return Complex(this->r + addend.r, this->i + addend.i);
+}
+
+Complex Complex::operator-(Complex &subtrahend)
+{
+    return Complex(this->r - subtrahend.r, this->i - subtrahend.i);
 }
 
 Complex Complex::operator*(Complex &factor)

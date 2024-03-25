@@ -1,3 +1,5 @@
+#ifndef COMPLEX_H
+
 #include <iostream>
 using namespace std;
 
@@ -14,15 +16,21 @@ private:
 public:
     string format(); // converts complex number to string
 
-    Complex(float r, float i); // constructor 1
+    Complex();
+
+    Complex(float, float); // constructor 1
 
     Complex(string); // constructor 2 for ease
 
-    Complex operator+(Complex &factor);
+    Complex operator+(Complex&);
+    
+    Complex operator-(Complex&);
 
-    Complex operator*(Complex &factor);
+    Complex operator*(Complex&);
 
     friend ostream &operator<<(ostream &os, const Complex &cnum);
 
     void print();
 };
+
+#endif // !COMPLEX_H
