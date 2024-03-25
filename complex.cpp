@@ -26,9 +26,9 @@ Complex::Complex(std::string cnum)
     this->i = c.i;
 }
 
-Complex Complex::operator+(Complex &factor)
+Complex Complex::operator+(Complex &addend)
 {
-    return Complex(this->r + factor.r, this->i + factor.i);
+    return Complex(this->r + addend.r, this->i + addend.i);
 }
 
 Complex Complex::operator*(Complex &factor)
