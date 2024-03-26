@@ -32,9 +32,9 @@ Complex Complex::operator+(Complex const &addend)
     return Complex(this->r + addend.r, this->i + addend.i);
 }
 
-Complex Complex::operator-(Complex const &subtractend)
+Complex Complex::operator-(Complex const &subtrahend)
 {
-    return Complex(this->r - subtractend.r, this->i - subtractend.i);
+    return Complex(this->r - subtrahend.r, this->i - subtrahend.i);
 }
 
 Complex Complex::operator*(Complex const &factor)
