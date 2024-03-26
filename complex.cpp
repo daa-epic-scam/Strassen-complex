@@ -40,9 +40,9 @@ Complex Complex::operator+(Complex &addend)
     return Complex(this->r + addend.r, this->i + addend.i);
 }
 
-Complex Complex::operator-(Complex &subtrahend)
+Complex Complex::operator-(Complex &subtractend)
 {
-    return Complex(this->r - subtrahend.r, this->i - subtrahend.i);
+    return Complex(this->r - subtractend.r, this->i - subtractend.i);
 }
 
 Complex Complex::operator*(Complex &factor)
