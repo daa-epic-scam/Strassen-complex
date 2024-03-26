@@ -89,12 +89,14 @@ Matrix Matrix::iter_multiply(Matrix factor) {
 }
 
 void Matrix::print() {
+    cout << endl;
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < cols_; j++) {
             cout << this->at(i, j).format() + " ";
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 
