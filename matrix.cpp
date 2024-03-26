@@ -68,6 +68,26 @@ Matrix Matrix::operator-(Matrix subtrahend) {
     return diff;
 }
 
+Matrix Matrix::iter_multiply(Matrix factor) {
+    if (this->cols_ != factor.rows()) {
+        throw std::invalid_argument("Incompatible matrix dimensions");
+    }
+
+    Matrix product = Matrix(this->rows_, factor.cols());
+    
+    for (int i = 0; i < this->rows_; i++) {
+        for (int j = 0; j < this->cols_; j++) {
+            Complex res = Complex(0, 0);
+            for (int k = 0; k < this->rows_; k++) {
+                res = res + this->at(i, k) * factor.at(k, j);
+            }
+            product.set_data(i*factor.cols()+j, res);
+        }
+    }
+
+    return product;
+}
+
 void Matrix::print() {
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < cols_; j++) {

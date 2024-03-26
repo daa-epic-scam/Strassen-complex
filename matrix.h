@@ -32,7 +32,7 @@ public:
     
     Matrix operator-(Matrix);
 
-    // Matrix operator*(Matrix);
+    Matrix iter_multiply(Matrix);
     
     void print();
 
