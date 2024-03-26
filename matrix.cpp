@@ -76,9 +76,9 @@ Matrix Matrix::iter_multiply(Matrix factor) {
     Matrix product = Matrix(this->rows_, factor.cols());
     
     for (int i = 0; i < this->rows_; i++) {
-        for (int j = 0; j < this->cols_; j++) {
+        for (int j = 0; j < factor.cols(); j++) {
             Complex res = Complex(0, 0);
-            for (int k = 0; k < this->rows_; k++) {
+            for (int k = 0; k < this->cols_; k++) {
                 res = res + this->at(i, k) * factor.at(k, j);
             }
             product.set_data(i*factor.cols()+j, res);
