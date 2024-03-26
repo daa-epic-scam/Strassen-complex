@@ -55,31 +55,29 @@ Matrix multiply_dnc(Matrix a, Matrix b)
 
 int main()
 {
-    Matrix m = Matrix(3, 3);
-    for (int i = 0; i < 9; i++)
+    Matrix m = Matrix(2, 2);
+    for (int i = 0; i < 4; i++)
     {
         m.set_data(i, Complex(i, i + 2 * i + 3));
     }
     cout << "printing matrix a" << endl;
     m.print();
 
-    Matrix n = Matrix(3, 2);
-    for (int i = 1; i < 6; i++)
+    Matrix n = Matrix(2, 2);
+    for (int i = 1; i < 4; i++)
     {
         n.set_data(i - 1, Complex(i, i * i));
     }
     n.print();
 
-    cout // Matrix sum = m + m;
-            cout
-        << "printing matrix b" << endl;
-    // sum.print();
+    cout << "printing matrix b" << endl;
+    n.print();
 
-    Matrix epic = multiply_dnc(m, sum);
+    Matrix epic = multiply_dnc(m, n);
     cout << "printing multiplication of a and b" << endl;
     epic.print();
 
-    << "product: " << endl;
+    cout << "product: " << endl;
 
     Matrix product = m.iter_multiply(n);
 
