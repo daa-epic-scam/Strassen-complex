@@ -22,11 +22,11 @@ public:
 
     Complex(string); // constructor 2 for ease
 
-    Complex operator+(Complex&);
+    Complex operator+(Complex const& );
     
-    Complex operator-(Complex&);
+    Complex operator-(Complex const&);
 
-    Complex operator*(Complex&);
+    Complex operator*(Complex const&);
 
     friend ostream &operator<<(ostream &os, const Complex &cnum);
 
