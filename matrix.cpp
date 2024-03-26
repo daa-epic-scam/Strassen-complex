@@ -87,6 +87,31 @@ Matrix Matrix::operator-(Matrix subtrahend)
     return diff;
 }
 
+Matrix Matrix::iter_multiply(Matrix factor)
+{
+    if (this->cols_ != factor.rows())
+    {
+        throw std::invalid_argument("Incompatible matrix dimensions");
+    }
+
+    Matrix product = Matrix(this->rows_, factor.cols());
+
+    for (int i = 0; i < this->rows_; i++)
+    {
+        for (int j = 0; j < factor.cols(); j++)
+        {
+            Complex res = Complex(0, 0);
+            for (int k = 0; k < this->cols_; k++)
+            {
+                res = res + this->at(i, k) * factor.at(k, j);
+            }
+            product.set_data(i * factor.cols() + j, res);
+        }
+    }
+
+    return product;
+}
+
 Matrix Matrix::cut_matrix(int startrow, int startcol, int endrow, int endcol)
 {
     Matrix newmat = Matrix(endrow - startrow, endcol - startcol);
@@ -121,6 +146,7 @@ void Matrix::print()
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 // destructor

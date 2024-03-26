@@ -35,7 +35,7 @@ public:
     Matrix cut_matrix(int startrow, int startcol, int endrow, int endcol);
 
     void fill_by_matrix(int startrow, int startcol, Matrix smallmat);
-    // Matrix operator*(Matrix);
+    Matrix iter_multiply(Matrix);
 
     void print();
 

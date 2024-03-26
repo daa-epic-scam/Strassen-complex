@@ -63,11 +63,25 @@ int main()
     cout << "printing matrix a" << endl;
     m.print();
 
-    Matrix sum = m + m;
-    cout << "printing matrix b" << endl;
-    sum.print();
+    Matrix n = Matrix(3, 2);
+    for (int i = 1; i < 6; i++)
+    {
+        n.set_data(i - 1, Complex(i, i * i));
+    }
+    n.print();
+
+    cout // Matrix sum = m + m;
+            cout
+        << "printing matrix b" << endl;
+    // sum.print();
 
     Matrix epic = multiply_dnc(m, sum);
     cout << "printing multiplication of a and b" << endl;
     epic.print();
+
+    << "product: " << endl;
+
+    Matrix product = m.iter_multiply(n);
+
+    product.print();
 }
