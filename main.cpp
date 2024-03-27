@@ -38,7 +38,7 @@ Matrix multiply_dnc(Matrix a, Matrix b)
     Matrix mat1 = multiply_dnc(mat1a, mat1b) + multiply_dnc(mat2a, mat3b);
     Matrix mat2 = multiply_dnc(mat1a, mat2b) + multiply_dnc(mat2a, mat4b);
     Matrix mat3 = multiply_dnc(mat3a, mat1b) + multiply_dnc(mat4a, mat3b);
-    Matrix mat4 = multiply_dnc(mat3a, mat3b) + multiply_dnc(mat4a, mat4b);
+    Matrix mat4 = multiply_dnc(mat3a, mat2b) + multiply_dnc(mat4a, mat4b);
 
     int rows = mat1.rows() + mat3.rows();
     int cols = mat1.cols() + mat2.cols();
