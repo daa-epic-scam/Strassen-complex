@@ -5,21 +5,25 @@
 
 Matrix multiply_dnc(Matrix a, Matrix b)
 {
+    if ((a.rows() == 0 && a.cols() == 0) && (b.rows() == 0 && b.cols() == 0))
+    {
+        return Matrix(0, 0);
+    }
     if (a.cols() != b.rows())
     {
-        throw std::invalid_argument("Incompatible matrix dimensions");
+        return Matrix(0, 0);
+        // throw std::invalid_argument("Incompatible matrix dimensions");
     }
-
     if ((a.rows() == 1 && a.cols() == 1) && (b.rows() == 1 && b.cols() == 1))
     {
         Matrix c = Matrix(1, 1);
         c.set_data(0, 0, a.at(0, 0) * b.at(0, 0));
         return c;
     }
-
     int splitrows = a.rows() - (a.rows() / 2);
     int splitcols = a.cols() - (a.cols() / 2);
 
+    // splitting of matrices into 4 quadrants
     Matrix mat1a = a.cut_matrix(0, 0, splitrows, splitcols);
     Matrix mat2a = a.cut_matrix(0, splitcols, splitrows, a.cols());
     Matrix mat3a = a.cut_matrix(splitrows, 0, a.rows(), splitcols);
@@ -42,16 +46,14 @@ Matrix multiply_dnc(Matrix a, Matrix b)
     Matrix merged = Matrix(rows, cols);
     // merging
     merged.fill_by_matrix(0, 0, mat1);
-    merged.fill_by_matrix(0, mat2.cols(), mat2);
+    merged.fill_by_matrix(0, mat1.cols(), mat2);
     merged.fill_by_matrix(mat1.rows(), 0, mat3);
-    merged.fill_by_matrix(mat1.rows(), mat2.cols(), mat4);
-
+    merged.fill_by_matrix(mat1.rows(), mat1.cols(), mat4);
     return merged;
 }
 
-
-
-Matrix strassen_multiply(Matrix A, Matrix B){
+Matrix strassen_multiply(Matrix A, Matrix B)
+{
 
     if (A.cols() != B.rows()) // check if the matrices are compatible for multiplication
     {
@@ -80,7 +82,7 @@ Matrix strassen_multiply(Matrix A, Matrix B){
 
     Matrix S1 = strassen_multiply(A11 + A22, B11 + B22);
     Matrix S2 = strassen_multiply(A21 + A22, B11);
-    Matrix S3 = strassen_multiply(A11,B12 - B22);
+    Matrix S3 = strassen_multiply(A11, B12 - B22);
     Matrix S4 = strassen_multiply(A22, B21 - B11);
     Matrix S5 = strassen_multiply(A11 + A12, B22);
     Matrix S6 = strassen_multiply(A21 - A11, B11 + B12);
@@ -103,7 +105,8 @@ Matrix strassen_multiply(Matrix A, Matrix B){
     return C;
 }
 
-int main(void){
+int main(void)
+{
     Matrix m1 = Matrix(2, 2);
     m1.set_data(0, 0, Complex(1, 2));
     m1.set_data(0, 1, Complex(3, 4));
@@ -125,6 +128,6 @@ int main(void){
     q.print();
     cout << "Iterative" << endl;
     Matrix r = m1.iter_multiply(m2);
-    r.print(); 
+    r.print();
     return 0;
 }

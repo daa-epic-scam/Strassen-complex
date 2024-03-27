@@ -36,6 +36,9 @@ void Matrix::set_data(int ind, Complex cnum)
 
 void Matrix::set_data(int row, int col, Complex cnum)
 {
+    // cout << "setting data for: " << row << col << " size: " << this->rows_ << this->cols_ << endl;
+    // cout << "this is the matrix for which data is being set: " << endl;
+    // this->print();
     if (row >= rows_ || col >= cols_)
     {
         throw std::out_of_range("Indices out of range");
@@ -46,6 +49,7 @@ void Matrix::set_data(int row, int col, Complex cnum)
 // access elements in matrix
 Complex Matrix::at(int row_index, int col_index)
 {
+
     if (row_index >= rows_ || col_index >= cols_)
     {
         throw std::out_of_range("Indices out of range");
@@ -55,6 +59,14 @@ Complex Matrix::at(int row_index, int col_index)
 
 Matrix Matrix::operator+(Matrix addend)
 {
+    if (this->rows_ == 0)
+    {
+        return addend;
+    }
+    if (addend.rows_ == 0)
+    {
+        return *this;
+    }
     if (this->rows_ != addend.rows() || this->cols_ != addend.cols())
     {
         throw std::invalid_argument("Incompatible matrix dimensions");
@@ -114,6 +126,10 @@ Matrix Matrix::iter_multiply(Matrix factor)
 
 Matrix Matrix::cut_matrix(int startrow, int startcol, int endrow, int endcol)
 {
+    if (endrow - startrow == 0 || endcol - startcol == 0)
+    {
+        return Matrix(0, 0);
+    }
     Matrix newmat = Matrix(endrow - startrow, endcol - startcol);
     for (int i = startrow; i < endrow; i++)
     {
@@ -138,6 +154,7 @@ void Matrix::fill_by_matrix(int startrow, int startcol, Matrix smallmat)
 
 void Matrix::print()
 {
+    cout << "--------------------------------------" << endl;
     for (int i = 0; i < rows_; i++)
     {
         for (int j = 0; j < cols_; j++)
@@ -146,7 +163,7 @@ void Matrix::print()
         }
         cout << endl;
     }
-    cout << endl;
+    cout << "--------------------------------------" << endl;
 }
 
 // destructor
