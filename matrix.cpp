@@ -186,7 +186,7 @@ Matrix Matrix::padding_matrix(Matrix m1)
     int new_rows = pow(2, ceil(log2(m1.rows())));
     int new_cols = pow(2, ceil(log2(m1.cols())));
     Matrix new_m1 = Matrix(new_rows, new_cols);
-    for (int i = new_rows - m1.rows(); i < new_rows; i++)
+    for (int i = m1.rows() + 1; i < new_rows; i++)
     {
         for (int j = new_cols - m1.cols(); j < new_cols; j++)
         {
