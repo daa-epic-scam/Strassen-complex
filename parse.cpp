@@ -67,7 +67,7 @@ public:
         return m;
     }
 
-    static std::vector<Matrix> init_n(std::vector<std::string> data, std::string delimiter="##") {
+    static std::vector<Matrix> init_n(std::vector<std::string> data, std::string delimiter="#") {
         std::vector<Matrix> matrices;
 
         auto start = data.begin();
