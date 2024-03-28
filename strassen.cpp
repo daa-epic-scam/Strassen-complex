@@ -125,7 +125,7 @@ int main(void)
         Matrix new_m2 = padding_matrix(m2);
         Matrix p = strassen_multiply(new_m1, new_m2);
         Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m1.cols());
-        cout << "Product: " << endl;
+        cout << "Strassen " << endl;
         new_p.print();
     }
     else
