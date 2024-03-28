@@ -1,5 +1,6 @@
 #ifndef COMPLEX_H
 
+#include <cmath>
 #include <iostream>
 #include "complex.h"
 
@@ -9,6 +10,13 @@ private:
     int rows_;
     int cols_;
     Complex *data_;
+    
+    bool isPowerOf2(int);
+
+    Matrix padding_matrix(Matrix);
+
+    Matrix strassen_multiply(Matrix, Matrix);
+
 
 public:
     // constructor for number of rows and columns in matrix
@@ -35,7 +43,10 @@ public:
     Matrix cut_matrix(int startrow, int startcol, int endrow, int endcol);
 
     void fill_by_matrix(int startrow, int startcol, Matrix smallmat);
+
     Matrix iter_multiply(Matrix);
+    
+    void strassen(Matrix);
 
     void print();
 
