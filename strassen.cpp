@@ -35,6 +35,5 @@ int main(void)
 
     // cout << "Test" << endl;
     m1.strassen(m2);
-
     return 0;
 }
