@@ -2,7 +2,7 @@
 
 Matrix::
 
-Matrix::Matrix(int rows_, int cols_) : rows_(rows_), cols_(cols_)
+    Matrix::Matrix(int rows_, int cols_) : rows_(rows_), cols_(cols_)
 {
     data_ = new Complex[rows_ * cols_];
 }
@@ -15,7 +15,6 @@ Matrix::Matrix(Matrix const &other) : rows_(other.rows_), cols_(other.cols_)
         data_[i] = other.data_[i];
     }
 }
-
 
 int Matrix::rows() const
 {
@@ -70,7 +69,6 @@ Matrix Matrix::operator+(Matrix addend)
     }
     if (this->rows_ != addend.rows() || this->cols_ != addend.cols())
     {
-        cout << "operator +" << endl;
         throw std::invalid_argument("Incompatible matrix dimensions");
     }
 
@@ -96,7 +94,6 @@ Matrix Matrix::operator-(Matrix subtrahend)
     }
     if (this->rows_ != subtrahend.rows() || this->cols_ != subtrahend.cols())
     {
-        cout << "operator -" << endl;
         throw std::invalid_argument("Incompatible matrix dimensions");
     }
 
@@ -209,7 +206,6 @@ Matrix Matrix::padding_matrix(Matrix m1)
     return new_m1;
 }
 
-
 Matrix Matrix::strassen_multiply(Matrix A, Matrix B)
 {
 
@@ -268,11 +264,12 @@ Matrix Matrix::strassen_multiply(Matrix A, Matrix B)
     return C;
 }
 
-void Matrix::strassen(Matrix m2) {
+void Matrix::strassen(Matrix m2)
+{
     Matrix m1 = *this;
     if (!isPowerOf2(m1.rows()) && !isPowerOf2(m2.rows()) && !isPowerOf2(m1.cols()) && !isPowerOf2(m2.cols()) && m1.cols() == m2.rows())
     {
-        // cout << "INSIDE" << endl;
+
         Matrix new_m1 = padding_matrix(m1);
         Matrix new_m2 = padding_matrix(m2);
         Matrix p = strassen_multiply(new_m1, new_m2);
