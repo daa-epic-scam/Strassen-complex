@@ -1,8 +1,9 @@
-#ifndef COMPLEX_H
+#ifndef MATRIX_H
 
 #include <cmath>
 #include <iostream>
 #include "complex.h"
+#include <string.h>
 
 class Matrix
 {
@@ -20,6 +21,7 @@ private:
 
 public:
     // constructor for number of rows and columns in matrix
+
     Matrix(int, int);
 
     Matrix(Matrix const &);
@@ -54,4 +56,4 @@ public:
     ~Matrix();
 };
 
-#endif // !COMPLEX_H
+#endif // !MATRIX_H
