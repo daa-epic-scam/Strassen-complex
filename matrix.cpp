@@ -36,9 +36,7 @@ void Matrix::set_data(int ind, Complex cnum)
 
 void Matrix::set_data(int row, int col, Complex cnum)
 {
-    // cout << "setting data for: " << row << col << " size: " << this->rows_ << this->cols_ << endl;
-    // cout << "this is the matrix for which data is being set: " << endl;
-    // this->print();
+
     if (row >= rows_ || col >= cols_)
     {
         throw std::out_of_range("Indices out of range");
@@ -69,6 +67,7 @@ Matrix Matrix::operator+(Matrix addend)
     }
     if (this->rows_ != addend.rows() || this->cols_ != addend.cols())
     {
+        cout << "operator +" << endl;
         throw std::invalid_argument("Incompatible matrix dimensions");
     }
 
@@ -84,8 +83,17 @@ Matrix Matrix::operator+(Matrix addend)
 
 Matrix Matrix::operator-(Matrix subtrahend)
 {
+    if (this->rows_ == 0)
+    {
+        return subtrahend;
+    }
+    if (subtrahend.rows_ == 0)
+    {
+        return *this;
+    }
     if (this->rows_ != subtrahend.rows() || this->cols_ != subtrahend.cols())
     {
+        cout << "operator -" << endl;
         throw std::invalid_argument("Incompatible matrix dimensions");
     }
 

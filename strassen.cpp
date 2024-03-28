@@ -169,7 +169,7 @@ int main(void)
     Matrix s = multiply_dnc(m1, m2);
     s.print();
 
-    if (!isPowerOf2(m1.rows()) && !isPowerOf2(m1.cols()) && !isPowerOf2(m2.rows()) && !isPowerOf2(m2.cols() && m1.cols() == m2.rows()))
+    if (!isPowerOf2(m1.rows()))
     {
         Matrix new_m1 = padding_matrix(m1);
         Matrix new_m2 = padding_matrix(m2);
