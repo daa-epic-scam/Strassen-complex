@@ -67,7 +67,7 @@ public:
         return m;
     }
 
-    static std::vector<Matrix> init_n(std::vector<std::string> data, std::string delimiter="#") {
+    static std::vector<Matrix> init_n(std::vector<std::string> data, std::string delimiter="##") {
         std::vector<Matrix> matrices;
 
         auto start = data.begin();
@@ -97,17 +97,17 @@ public:
 
 int main() {
     cout << "loading file sample into matrix: " << endl;
-    std::vector<std::string> lines = Parse::load("sample");
+    std::vector<std::string> lines = Parse::load("test.txt");
 
     Matrix m = Parse::init(lines);
     m.print();
     
     
-    cout << "loading file sample2 into matrix: " << endl;
-    std::vector<Matrix> matrices = Parse::init_n(Parse::load("sample2"));
-    
-    for (auto matrix: matrices) {
-        matrix.print();
-    }
+    // cout << "loading file sample2 into matrix: " << endl;
+    // std::vector<Matrix> matrices = Parse::init_n(Parse::load("test.txt"));
+    // 
+    // for (auto matrix: matrices) {
+    //     matrix.print();
+    // }
     return 0;
 }
