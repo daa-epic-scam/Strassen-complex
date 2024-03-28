@@ -45,12 +45,15 @@ public:
     Matrix cut_matrix(int startrow, int startcol, int endrow, int endcol);
 
     void fill_by_matrix(int startrow, int startcol, Matrix smallmat);
+    
+    void print();
 
     Matrix iter_multiply(Matrix);
     
+    Matrix multiply_dnc(Matrix, Matrix);
+
     void strassen(Matrix);
 
-    void print();
 
     // destructor
     ~Matrix();
