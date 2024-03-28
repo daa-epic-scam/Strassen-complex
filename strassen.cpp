@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 
-
 int main(void)
 {
     Matrix m1 = Matrix(3, 3);
