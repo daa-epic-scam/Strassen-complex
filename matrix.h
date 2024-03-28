@@ -11,13 +11,10 @@ private:
     int rows_;
     int cols_;
     Complex *data_;
-    
-    bool isPowerOf2(int);
 
-    Matrix padding_matrix(Matrix);
+    Matrix pad(Matrix, int);
 
     Matrix strassen_multiply(Matrix, Matrix);
-
 
 public:
     // constructor for number of rows and columns in matrix
@@ -35,6 +32,7 @@ public:
     void set_data(int, Complex);
 
     void set_data(int, int, Complex);
+
     // access elements in matrix
     Complex at(int, int);
 
@@ -45,15 +43,14 @@ public:
     Matrix cut_matrix(int startrow, int startcol, int endrow, int endcol);
 
     void fill_by_matrix(int startrow, int startcol, Matrix smallmat);
-    
+
     void print();
 
     Matrix iter_multiply(Matrix);
-    
+
     Matrix multiply_dnc(Matrix, Matrix);
 
     void strassen(Matrix);
-
 
     // destructor
     ~Matrix();

@@ -229,45 +229,52 @@ Matrix multiply_dnc(Matrix a, Matrix b)
     return merged;
 }
 
-bool Matrix::isPowerOf2(int n)
+int max_num(int m1_rows, int m1_cols, int m2_rows, int m2_cols)
 {
-    if (n == 0)
+    if (m1_cols != m2_rows)
     {
-        return 0;
+        throw std::invalid_argument("Invalid matrix dimensions");
     }
-    return (ceil(log2(n)) == floor(log2(n)));
+    if (m1_rows >= m1_cols && m1_rows >= m2_rows && m1_rows >= m2_cols)
+    {
+        return m1_rows;
+    }
+    else if (m1_cols >= m1_rows && m1_cols >= m2_rows && m1_cols >= m2_cols)
+    {
+        return m1_cols;
+    }
+    else if (m2_rows >= m1_rows && m2_rows >= m1_cols && m2_rows >= m2_cols)
+    {
+        return m2_rows;
+    }
+    else
+    {
+        return m2_cols;
+    }
 }
 
-Matrix Matrix::padding_matrix(Matrix m1)
+Matrix Matrix::pad(Matrix m1, int new_rows)
 {
-    int new_rows = pow(2, ceil(log2(m1.rows())));
-    int new_cols = pow(2, ceil(log2(m1.cols())));
-    Matrix new_m1 = Matrix(new_rows, new_cols);
-    for (int i = m1.rows() + 1; i < new_rows; i++)
+    if (m1.rows() == 0)
     {
-        for (int j = new_cols - m1.cols(); j < new_cols; j++)
+        throw std::invalid_argument("Matrix dimensions can not be zero");
+    }
+    new_rows = pow(2, ceil(log2(new_rows)));
+    Matrix new_m1 = Matrix(new_rows, new_rows);
+    for (int i = 0; i < new_rows; i++)
+    {
+        for (int j = 0; j < new_rows; j++)
         {
             new_m1.set_data(i, j, Complex(0, 0));
         }
     }
     new_m1.fill_by_matrix(0, 0, m1);
-    new_m1.print();
     return new_m1;
 }
 
 Matrix Matrix::strassen_multiply(Matrix A, Matrix B)
 {
-
-    if ((A.cols() != A.rows()) && (B.cols() != B.rows()))
-    {
-        throw std::invalid_argument("Strassen: Matrix is not square");
-    }
-
-    if (A.cols() != B.rows()) // check if the matrices are compatible for multiplication
-    {
-        throw std::invalid_argument("Strassen: Incompatible matrix dimensions");
-    }
-
+    // base case
     if ((A.rows() == 1 && A.cols() == 1) && (B.rows() == 1 && B.cols() == 1))
     {
         Matrix C = Matrix(1, 1);
@@ -309,27 +316,17 @@ Matrix Matrix::strassen_multiply(Matrix A, Matrix B)
     C.fill_by_matrix(0, C12.cols(), C12);
     C.fill_by_matrix(C11.rows(), 0, C21);
     C.fill_by_matrix(C11.rows(), C12.cols(), C22);
-
     return C;
 }
 
 void Matrix::strassen(Matrix m2)
 {
     Matrix m1 = *this;
-    if (!isPowerOf2(m1.rows()) && !isPowerOf2(m2.rows()) && !isPowerOf2(m1.cols()) && !isPowerOf2(m2.cols()) && m1.cols() == m2.rows())
-    {
-
-        Matrix new_m1 = padding_matrix(m1);
-        Matrix new_m2 = padding_matrix(m2);
-        Matrix p = strassen_multiply(new_m1, new_m2);
-        Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m1.cols());
-        cout << "Product: " << endl;
-        new_p.print();
-    }
-    else
-    {
-        Matrix p = strassen_multiply(m1, m2);
-        cout << "Strassen" << endl;
-        p.print();
-    }
+    int dim = max_num(m1.rows(), m1.cols(), m2.rows(), m2.cols());
+    Matrix new_m1 = Matrix(dim, dim);
+    Matrix new_m2 = Matrix(dim, dim);
+    Matrix p = strassen_multiply(new_m1.pad(m1, dim), new_m2.pad(m2, dim));
+    Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m2.cols());
+    cout << "Strassen: " << endl;
+    new_p.print();
 }
