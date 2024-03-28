@@ -25,56 +25,8 @@ Matrix padding_matrix(Matrix m1)
         }
     }
     new_m1.fill_by_matrix(0, 0, m1);
+    new_m1.print();
     return new_m1;
-}
-
-Matrix multiply_dnc(Matrix a, Matrix b)
-{
-    if ((a.rows() == 0 && a.cols() == 0) && (b.rows() == 0 && b.cols() == 0))
-    {
-        return Matrix(0, 0);
-    }
-    if (a.cols() != b.rows())
-    {
-        return Matrix(0, 0);
-        // throw std::invalid_argument("Incompatible matrix dimensions");
-    }
-    if ((a.rows() == 1 && a.cols() == 1) && (b.rows() == 1 && b.cols() == 1))
-    {
-        Matrix c = Matrix(1, 1);
-        c.set_data(0, 0, a.at(0, 0) * b.at(0, 0));
-        return c;
-    }
-    int splitrows = a.rows() - (a.rows() / 2);
-    int splitcols = a.cols() - (a.cols() / 2);
-
-    // splitting of matrices into 4 quadrants
-    Matrix mat1a = a.cut_matrix(0, 0, splitrows, splitcols);
-    Matrix mat2a = a.cut_matrix(0, splitcols, splitrows, a.cols());
-    Matrix mat3a = a.cut_matrix(splitrows, 0, a.rows(), splitcols);
-    Matrix mat4a = a.cut_matrix(splitrows, splitcols, a.rows(), a.cols());
-
-    Matrix mat1b = b.cut_matrix(0, 0, splitrows, splitcols);
-    Matrix mat2b = b.cut_matrix(0, splitcols, splitrows, b.cols());
-    Matrix mat3b = b.cut_matrix(splitrows, 0, b.rows(), splitcols);
-    Matrix mat4b = b.cut_matrix(splitrows, splitcols, b.rows(), b.cols());
-
-    // recursive calls for multiplying matrices, 8 multiplication and 4 additions
-    Matrix mat1 = multiply_dnc(mat1a, mat1b) + multiply_dnc(mat2a, mat3b);
-    Matrix mat2 = multiply_dnc(mat1a, mat2b) + multiply_dnc(mat2a, mat4b);
-    Matrix mat3 = multiply_dnc(mat3a, mat1b) + multiply_dnc(mat4a, mat3b);
-    Matrix mat4 = multiply_dnc(mat3a, mat2b) + multiply_dnc(mat4a, mat4b);
-
-    int rows = mat1.rows() + mat3.rows();
-    int cols = mat1.cols() + mat2.cols();
-    // making the new matrix
-    Matrix merged = Matrix(rows, cols);
-    // merging
-    merged.fill_by_matrix(0, 0, mat1);
-    merged.fill_by_matrix(0, mat1.cols(), mat2);
-    merged.fill_by_matrix(mat1.rows(), 0, mat3);
-    merged.fill_by_matrix(mat1.rows(), mat1.cols(), mat4);
-    return merged;
 }
 
 Matrix strassen_multiply(Matrix A, Matrix B)
@@ -128,9 +80,9 @@ Matrix strassen_multiply(Matrix A, Matrix B)
 
     Matrix C = Matrix(rows, cols);
     C.fill_by_matrix(0, 0, C11);
-    C.fill_by_matrix(0, C11.cols(), C12);
+    C.fill_by_matrix(0, C12.cols(), C12);
     C.fill_by_matrix(C11.rows(), 0, C21);
-    C.fill_by_matrix(C11.rows(), C11.cols(), C22);
+    C.fill_by_matrix(C11.rows(), C12.cols(), C22);
 
     return C;
 }
@@ -165,17 +117,15 @@ int main(void)
     Matrix r = m1.iter_multiply(m2);
     r.print();
 
-    cout << "Recursive" << endl;
-    Matrix s = multiply_dnc(m1, m2);
-    s.print();
-
-    if (!isPowerOf2(m1.rows()) && !isPowerOf2(m1.cols()) && !isPowerOf2(m2.rows()) && !isPowerOf2(m2.cols() && m1.cols() == m2.rows()))
+    // cout << "Test" << endl;
+    if (!isPowerOf2(m1.rows()) && !isPowerOf2(m2.rows()) && !isPowerOf2(m1.cols()) && !isPowerOf2(m2.cols()) && m1.cols() == m2.rows())
     {
+        // cout << "INSIDE" << endl;
         Matrix new_m1 = padding_matrix(m1);
         Matrix new_m2 = padding_matrix(m2);
         Matrix p = strassen_multiply(new_m1, new_m2);
         Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m1.cols());
-        cout << "Strassen" << endl;
+        cout << "Product: " << endl;
         new_p.print();
     }
     else
