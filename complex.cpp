@@ -3,7 +3,7 @@
 #include "complex.h"
 using namespace std;
 
-Complex Complex::split(string cnum)
+Complex Complex::split(std::string cnum)
 {
     int end = cnum.find("+", 0);
     string real = cnum.substr(0, end);
@@ -20,7 +20,7 @@ Complex::Complex() : r(0), i(0) {}
 
 Complex::Complex(float r, float i) : r(r), i(i) {}
 
-Complex::Complex(string cnum)
+Complex::Complex(std::string cnum)
 {
     Complex c = split(cnum);
     this->r = c.r;

@@ -1,5 +1,7 @@
 #include "matrix.h"
 
+Matrix::
+
 Matrix::Matrix(int rows_, int cols_) : rows_(rows_), cols_(cols_)
 {
     data_ = new Complex[rows_ * cols_];
@@ -13,6 +15,7 @@ Matrix::Matrix(Matrix const &other) : rows_(other.rows_), cols_(other.cols_)
         data_[i] = other.data_[i];
     }
 }
+
 
 int Matrix::rows() const
 {

@@ -20,7 +20,7 @@ public:
 
     Complex(float, float); // constructor 1
 
-    Complex(string); // constructor 2 for ease
+    Complex(std::string); // constructor 2 for ease
 
     Complex operator+(Complex const& );
     
