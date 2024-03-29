@@ -12,8 +12,8 @@ def matrix_gen(rows, cols):
     return s
 
 def main():
-    rows = 100
-    cols = 100
+    rows = 1000
+    cols = 1000
     s = matrix_gen(rows, cols)
     print(s)
 
