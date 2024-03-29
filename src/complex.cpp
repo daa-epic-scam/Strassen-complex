@@ -39,7 +39,10 @@ Complex Complex::operator-(Complex const &subtrahend)
 
 Complex Complex::operator*(Complex const &factor)
 {
-    return Complex(((factor.r * (this->r + this->i)) - (this->i * (factor.r + factor.i))), ((factor.r * (this->r + this->i)) - (this->r * (factor.i - factor.r))));
+    Complex k1 = (factor.r * (this->r + this->i));
+    Complex k2 = (this->i * (factor.r + factor.i));
+    Complex k3 = (this->r * (factor.i - factor.r));
+    return Complex(k1 - k2, k1 - k3);
 }
 
 void Complex::print()
