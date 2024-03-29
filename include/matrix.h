@@ -14,7 +14,7 @@ private:
     Complex *data_;
 
     Matrix pad(Matrix, int);
-
+    Matrix dnc_multiply(Matrix, Matrix);
     Matrix strassen_multiply(Matrix, Matrix);
 
 public:
@@ -49,7 +49,7 @@ public:
 
     Matrix iter_multiply(Matrix);
 
-    Matrix multiply_dnc(Matrix, Matrix);
+    void recursive_multiply(Matrix);
 
     void strassen(Matrix);
 

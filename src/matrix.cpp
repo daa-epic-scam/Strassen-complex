@@ -180,7 +180,7 @@ Matrix::~Matrix()
     delete[] data_;
 }
 
-Matrix multiply_dnc(Matrix a, Matrix b)
+Matrix Matrix::dnc_multiply(Matrix a, Matrix b)
 {
     if ((a.rows() == 0 && a.cols() == 0) && (b.rows() == 0 && b.cols() == 0))
     {
@@ -212,10 +212,10 @@ Matrix multiply_dnc(Matrix a, Matrix b)
     Matrix mat4b = b.cut_matrix(splitrows, splitcols, b.rows(), b.cols());
 
     // recursive calls for multiplying matrices, 8 multiplication and 4 additions
-    Matrix mat1 = multiply_dnc(mat1a, mat1b) + multiply_dnc(mat2a, mat3b);
-    Matrix mat2 = multiply_dnc(mat1a, mat2b) + multiply_dnc(mat2a, mat4b);
-    Matrix mat3 = multiply_dnc(mat3a, mat1b) + multiply_dnc(mat4a, mat3b);
-    Matrix mat4 = multiply_dnc(mat3a, mat2b) + multiply_dnc(mat4a, mat4b);
+    Matrix mat1 = dnc_multiply(mat1a, mat1b) + dnc_multiply(mat2a, mat3b);
+    Matrix mat2 = dnc_multiply(mat1a, mat2b) + dnc_multiply(mat2a, mat4b);
+    Matrix mat3 = dnc_multiply(mat3a, mat1b) + dnc_multiply(mat4a, mat3b);
+    Matrix mat4 = dnc_multiply(mat3a, mat2b) + dnc_multiply(mat4a, mat4b);
 
     int rows = mat1.rows() + mat3.rows();
     int cols = mat1.cols() + mat2.cols();
@@ -329,4 +329,11 @@ void Matrix::strassen(Matrix m2)
     Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m2.cols());
     cout << "Strassen: " << endl;
     new_p.print();
+}
+
+void Matrix::recursive_multiply(Matrix m2)
+{
+    Matrix p = dnc_multiply(*this, m2);
+    cout << "Conventional Recursive: " << endl;
+    p.print();
 }
