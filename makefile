@@ -1,20 +1,28 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra
 
-complex: 
-	$(CXX) matrix.cpp complex.cpp main.cpp -o complex
+# Source directories
+SRCDIR = src
+INCDIR = include
 
-SOURCES = parse.cpp matrix.cpp complex.cpp
+# Executable
+EXECUTABLE = main
 
-EXECUTABLE = parse
+# Source files
+SOURCES = $(wildcard $(SRCDIR)/*.cpp)
+
+# Header files
+HEADERS = $(wildcard $(INCDIR)/*.h)
 
 # Default target
-# all: $(EXECUTABLE)
+all: $(EXECUTABLE)
 
-# Link source files to create executable
-$(EXECUTABLE): $(SOURCES)
-	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(EXECUTABLE)
+# Build executable from source files
+$(EXECUTABLE): $(SOURCES) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -I$(INCDIR) $(SOURCES) -o bin/$(EXECUTABLE)
 
-# Clean up executable
+# Clean up
 clean:
-	rm -f $(EXECUTABLE)
+	rm -f bin/$(EXECUTABLE)
+
+.PHONY: all clean
