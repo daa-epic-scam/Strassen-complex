@@ -9,7 +9,7 @@ INCDIR = include
 EXECUTABLE = main
 
 # Source files
-SOURCES = $(wildcard $(SRCDIR)/*.cpp)
+SOURCES = $(filter-out src/time.cpp, $(wildcard $(SRCDIR)/*.cpp))
 
 # Header files
 HEADERS = $(wildcard $(INCDIR)/*.h)
