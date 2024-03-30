@@ -9,27 +9,27 @@ using namespace std;
 using namespace std::chrono;
 int main(void)
 {
-    cout << "loading file sample into matrix: " << endl;
-    std::vector<std::string> lines = Parse::load("tests/test.txt");
+    // cout << "loading file sample into matrix: " << endl;
+    std::vector<std::string> lines = Parse::load("tests/test9.txt");
 
     Matrix m = Parse::init(lines);
-    m.print();
-
+    // m.print();
+    cout << "Loaded the Matrix from the file of size: " << m.rows() << "x" << m.cols() << endl;
     auto start = high_resolution_clock::now();
     m.iter_multiply(m);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << "Time taken by Conventional Recursive: " << duration.count() << " microseconds" << endl;
+    cout << "Time taken by Iterative Multiplication: " << duration.count() << " microseconds" << endl;
 
-    auto start = high_resolution_clock::now();
+    start = high_resolution_clock::now();
     m.recursive_multiply(m);
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    cout << "Time taken by Conventional Recursive: " << duration.count() << " microseconds" << endl;
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by Conventional Recursive Multiplication: " << duration.count() << " microseconds" << endl;
 
-    auto start = high_resolution_clock::now();
+    start = high_resolution_clock::now();
     m.strassen(m);
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    cout << "Time taken by Conventional Recursive: " << duration.count() << " microseconds" << endl;
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by Strassen's Multiplication: " << duration.count() << " microseconds" << endl;
 }
