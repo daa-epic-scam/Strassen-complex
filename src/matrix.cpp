@@ -52,6 +52,8 @@ Complex Matrix::at(int row_index, int col_index)
 
     if (row_index >= rows_ || col_index >= cols_)
     {
+        cout << "rows and cols needed" << row_index << col_index << endl;
+        cout << "rows and cols of matrix" << rows_ << cols_ << endl;
         throw std::out_of_range("Indices out of range");
     }
     return data_[row_index * cols_ + col_index];
@@ -139,6 +141,8 @@ Matrix Matrix::cut_matrix(int startrow, int startcol, int endrow, int endcol)
         return Matrix(0, 0);
     }
     Matrix newmat = Matrix(endrow - startrow, endcol - startcol);
+    // this->print();
+    // cout << "startrow: " << startrow << " startcol: " << startcol << " endrow: " << endrow << " endcol: " << endcol << endl;
     for (int i = startrow; i < endrow; i++)
     {
         for (int j = startcol; j < endcol; j++)
@@ -180,7 +184,7 @@ Matrix::~Matrix()
     delete[] data_;
 }
 
-Matrix multiply_dnc(Matrix a, Matrix b)
+Matrix Matrix::dnc_multiply(Matrix a, Matrix b)
 {
     if ((a.rows() == 0 && a.cols() == 0) && (b.rows() == 0 && b.cols() == 0))
     {
@@ -199,23 +203,23 @@ Matrix multiply_dnc(Matrix a, Matrix b)
     }
     int splitrows = a.rows() - (a.rows() / 2);
     int splitcols = a.cols() - (a.cols() / 2);
-
     // splitting of matrices into 4 quadrants
     Matrix mat1a = a.cut_matrix(0, 0, splitrows, splitcols);
     Matrix mat2a = a.cut_matrix(0, splitcols, splitrows, a.cols());
     Matrix mat3a = a.cut_matrix(splitrows, 0, a.rows(), splitcols);
     Matrix mat4a = a.cut_matrix(splitrows, splitcols, a.rows(), a.cols());
-
+    splitrows = b.rows() - (b.rows() / 2);
+    splitcols = b.cols() - (b.cols() / 2);
     Matrix mat1b = b.cut_matrix(0, 0, splitrows, splitcols);
     Matrix mat2b = b.cut_matrix(0, splitcols, splitrows, b.cols());
     Matrix mat3b = b.cut_matrix(splitrows, 0, b.rows(), splitcols);
     Matrix mat4b = b.cut_matrix(splitrows, splitcols, b.rows(), b.cols());
 
     // recursive calls for multiplying matrices, 8 multiplication and 4 additions
-    Matrix mat1 = multiply_dnc(mat1a, mat1b) + multiply_dnc(mat2a, mat3b);
-    Matrix mat2 = multiply_dnc(mat1a, mat2b) + multiply_dnc(mat2a, mat4b);
-    Matrix mat3 = multiply_dnc(mat3a, mat1b) + multiply_dnc(mat4a, mat3b);
-    Matrix mat4 = multiply_dnc(mat3a, mat2b) + multiply_dnc(mat4a, mat4b);
+    Matrix mat1 = dnc_multiply(mat1a, mat1b) + dnc_multiply(mat2a, mat3b);
+    Matrix mat2 = dnc_multiply(mat1a, mat2b) + dnc_multiply(mat2a, mat4b);
+    Matrix mat3 = dnc_multiply(mat3a, mat1b) + dnc_multiply(mat4a, mat3b);
+    Matrix mat4 = dnc_multiply(mat3a, mat2b) + dnc_multiply(mat4a, mat4b);
 
     int rows = mat1.rows() + mat3.rows();
     int cols = mat1.cols() + mat2.cols();
@@ -327,6 +331,13 @@ void Matrix::strassen(Matrix m2)
     Matrix new_m2 = Matrix(dim, dim);
     Matrix p = strassen_multiply(new_m1.pad(m1, dim), new_m2.pad(m2, dim));
     Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m2.cols());
-    cout << "Strassen: " << endl;
-    new_p.print();
+    // cout << "Strassen: " << endl;
+    // new_p.print();
+}
+
+void Matrix::recursive_multiply(Matrix m2)
+{
+    Matrix p = dnc_multiply(*this, m2);
+    // cout << "Conventional Recursive: " << endl;
+    // p.print();
 }
