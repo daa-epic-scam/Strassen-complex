@@ -10,6 +10,8 @@ int main()
     cout << "loading file sample into matrix: " << endl;
     std::vector<std::string> lines = Parse::load("tests/test.txt");
 
-    Matrix m = Parse::init(lines);
-    m.print();
+    auto m = Parse::init_n(lines, "#");
+    for (auto i: m) {
+        i.print();
+    }
 }
