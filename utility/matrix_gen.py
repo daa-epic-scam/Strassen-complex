@@ -12,9 +12,10 @@ def matrix_gen(rows, cols):
     return s
 
 def main():
-    rows = 1024
-    cols = 1024
-    s = matrix_gen(rows, cols)
+    s=''
+    for i in range(1,5,1):
+        s+=matrix_gen(i, i) 
+        s+='#\n'
     with open("output.txt", "w") as file:
         file.write(s)
 
