@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../include/parse.h"
 
 std::vector<Complex> Parse::parse(std::string data)
 {

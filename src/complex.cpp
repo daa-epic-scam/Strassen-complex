@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "complex.h"
+#include "../include/complex.h"
 using namespace std;
 
 Complex Complex::split(std::string cnum)

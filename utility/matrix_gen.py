@@ -9,15 +9,12 @@ def matrix_gen(rows, cols):
                 s += f"{real}+{im}i,"
             else:
                 s += f"{real}+{im}i\n"
-    return s
+    return s + "#\n"
 
 def main():
-    s=''
-    for i in range(1,5,1):
-        s+=matrix_gen(i, i) 
-        s+='#\n'
-    with open("output.txt", "w") as file:
-        file.write(s)
+    s = matrix_gen(8192, 8192)
+
+    print(s.strip())
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,8 @@
 //
 #include <chrono>
-#include "complex.h"
-#include "matrix.h"
-#include "parse.h"
+#include "../include/complex.h"
+#include "../include/matrix.h"
+#include "../include/parse.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -10,35 +10,21 @@ using namespace std::chrono;
 
 int main(void)
 {
-    std::vector<std::string> lines = Parse::load("tests/test1.txt");
-    std::vector<std::string> lines2 = Parse::load("tests/test12.txt");
-    Matrix m1 = Parse::init(lines);
-    Matrix m2 = Parse::init(lines2);
+    std::string test_no = "testcase5.txt"; // change this to change the testcase number
+                                           // directory is in tests/testcases
+                                           // in case you would like to generate your own
+                                           // testcases, use utility/matrix_gen.py (set params)
+                                           // and add the matrices into your test file
 
-    auto start = high_resolution_clock::now();
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
+    auto data = Parse::load("tests/testcases/" + test_no);
+    auto matrices = Parse::init_n(data, "#"); // 2nd argument is delimter, important do not change
 
-    cout << "Loaded the Matrix 1 from the file of size: " << m1.rows() << "x" << m1.cols() << endl;
-    m1.print();
+    cout << "Iterative multiplication" << endl;
+    matrices[0].iter_multiply(matrices[1]).print();
 
-    cout << "Loaded the Matrix 2 from the file of size: " << m2.rows() << "x" << m2.cols() << endl;
-    m2.print();
-    start = high_resolution_clock::now();
-    Matrix mout1 = m1.iter_multiply(m2);
-    stop = high_resolution_clock::now();
-    duration = duration_cast<microseconds>(stop - start);
-    cout << "Time taken by Iterative Multiplication: " << duration.count() << " microseconds" << endl;
+    cout << "Recursive multiplication" << endl;
+    matrices[0].recursive_multiply(matrices[1]).print();
 
-    start = high_resolution_clock::now();
-    m1.recursive_multiply(m2);
-    stop = high_resolution_clock::now();
-    duration = duration_cast<microseconds>(stop - start);
-    cout << "Time taken by Conventional Recursive Multiplication: " << duration.count() << " microseconds" << endl;
-
-    start = high_resolution_clock::now();
-    m1.strassen(m2);
-    stop = high_resolution_clock::now();
-    duration = duration_cast<microseconds>(stop - start);
-    cout << "Time taken by Strassen's Multiplication: " << duration.count() << " microseconds" << endl;
+    cout << "Strassen multiplication" << endl;
+    matrices[0].strassen(matrices[1]).print();
 }
