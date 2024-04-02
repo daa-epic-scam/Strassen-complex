@@ -130,7 +130,8 @@ Matrix Matrix::iter_multiply(Matrix factor)
             product.set_data(i * factor.cols() + j, res);
         }
     }
-
+    cout << "Iterative: " << endl;
+    product.print();
     return product;
 }
 
@@ -331,13 +332,13 @@ void Matrix::strassen(Matrix m2)
     Matrix new_m2 = Matrix(dim, dim);
     Matrix p = strassen_multiply(new_m1.pad(m1, dim), new_m2.pad(m2, dim));
     Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m2.cols());
-    // cout << "Strassen: " << endl;
-    // new_p.print();
+    cout << "Strassen: " << endl;
+    new_p.print();
 }
 
 void Matrix::recursive_multiply(Matrix m2)
 {
     Matrix p = dnc_multiply(*this, m2);
-    // cout << "Conventional Recursive: " << endl;
-    // p.print();
+    cout << "Conventional Recursive: " << endl;
+    p.print();
 }
