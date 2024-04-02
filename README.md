@@ -10,5 +10,5 @@ g++ -std=c++11 -Wall -Wextra -Iinclude src/complex.cpp src/main.cpp src/matrix.c
 To execute
 
 ```
-./bin/mainj
+./bin/main
 ```
