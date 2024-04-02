@@ -340,6 +340,7 @@ Matrix Matrix::strassen(Matrix m2)
 Matrix Matrix::recursive_multiply(Matrix m2)
 {
     Matrix p = dnc_multiply(*this, m2);
+    return p;
     // cout << "Conventional Recursive: " << endl;
     // p.print();
 }
