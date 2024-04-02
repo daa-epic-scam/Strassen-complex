@@ -49,9 +49,9 @@ public:
 
     Matrix iter_multiply(Matrix);
 
-    void recursive_multiply(Matrix);
+    Matrix recursive_multiply(Matrix);
 
-    void strassen(Matrix);
+    Matrix strassen(Matrix);
 
     // destructor
     ~Matrix();

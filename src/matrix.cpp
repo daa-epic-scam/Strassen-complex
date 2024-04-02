@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "../include/matrix.h"
 
 Matrix::
 
@@ -323,7 +323,7 @@ Matrix Matrix::strassen_multiply(Matrix A, Matrix B)
     return C;
 }
 
-void Matrix::strassen(Matrix m2)
+Matrix Matrix::strassen(Matrix m2)
 {
     Matrix m1 = *this;
     int dim = max_num(m1.rows(), m1.cols(), m2.rows(), m2.cols());
@@ -333,11 +333,13 @@ void Matrix::strassen(Matrix m2)
     Matrix new_p = p.cut_matrix(0, 0, m1.rows(), m2.cols());
     // cout << "Strassen: " << endl;
     // new_p.print();
+    return new_p;
 }
 
-void Matrix::recursive_multiply(Matrix m2)
+Matrix Matrix::recursive_multiply(Matrix m2)
 {
     Matrix p = dnc_multiply(*this, m2);
     // cout << "Conventional Recursive: " << endl;
     // p.print();
+    return p;
 }

@@ -12,12 +12,7 @@ def matrix_gen(rows, cols):
     return s + "#\n"
 
 def main():
-    s=''
-    i = 1
-    while True:
-        if i == 1024: break
-        s+=matrix_gen(i, i) 
-        i *= 2
+    s = matrix_gen(8192, 8192)
 
     print(s.strip())
 
