@@ -39,10 +39,19 @@ Complex Complex::operator-(Complex const &subtrahend)
 
 Complex Complex::operator*(Complex const &factor)
 {
-    float k1 = (factor.r * (this->r + this->i));
-    float k2 = (this->i * (factor.r + factor.i));
-    float k3 = (this->r * (factor.i - factor.r));
-    return Complex(k1 - k2, k1 - k3);
+    auto a = this->r;
+    auto b = this->i;
+    auto c = factor.r;
+    auto d = factor.i;
+    
+    float k1 = (c * (a + b));
+    float k2 = (b * (c + d));
+    float k3 = (a * (d - c));
+    // float k1 = (factor.r * (this->r + this->i));
+    // float k2 = (this->i * (factor.r + factor.i));
+    // float k3 = (this->r * (factor.i - factor.r));
+    return Complex(k1 - k2, k1 + k3);
+    // return Complex(this->r * factor.r - this->i * factor.i, this->r * factor.i + this->i + factor.r);
 }
 
 void Complex::print()

@@ -130,8 +130,8 @@ Matrix Matrix::iter_multiply(Matrix factor)
             product.set_data(i * factor.cols() + j, res);
         }
     }
-    cout << "Iterative: " << endl;
-    product.print();
+    // cout << "Iterative: " << endl;
+    // product.print();
     return product;
 }
 
